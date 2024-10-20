@@ -1,5 +1,8 @@
 let dice = [];
 let numberOfDice = 5;
+let rollCount = 0;
+let maxRolls = 3;
+let gameOver = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
