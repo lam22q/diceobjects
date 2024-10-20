@@ -9,6 +9,7 @@ function setup() {
   for (let i = 0; i < numberOfDice; i++) {
     dice[i] = new Die(50); // argument is the size of the die
   }
+  textSize(24);
 }
 
 function draw() {
@@ -31,6 +32,27 @@ function mouseClicked() {
     if (die.isTouched(mouseX,mouseY)) {
       die.toggleFreeze();
     }
+     // Display roll instructions and roll count
+  fill(255);
+  textAlign(LEFT, CENTER);
+  text(`Rolls left: ${maxRolls - rollCount}`, 20, height - 60);
+
+  if (gameOver) {
+    const result = checkResult();
+    text(`Game Over! Result: ${result}`, 20, height - 30);
+  } else {
+    text("Click dice to hold/freeze. Shake or press any key to roll.", 20, height - 30);
+  }
+}
+
+// Mouse click event: Freeze/unfreeze the clicked dice
+function mouseClicked() {
+  if (gameOver) return;
+
+  for (let i = 0; i < dice.length; i++) {
+    const die = dice[i];
+    if (die.isTouched(mouseX, mouseY)) {
+      die.toggleFreeze();
   }
 }
 
