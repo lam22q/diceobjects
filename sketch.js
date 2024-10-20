@@ -45,7 +45,7 @@ function mouseClicked() {
   }
 }
 
-// Mouse click event: Freeze/unfreeze the clicked dice
+// Roll the dice either by key press or device shake
 function mouseClicked() {
   if (gameOver) return;
 
@@ -56,14 +56,18 @@ function mouseClicked() {
   }
 }
 
-// for computers...
+// // Roll the dice either by key press or device shake.
 function keyPressed() {
-  shakeDice();
+  if (!gameOver) {
+    rollDice();
+  }
 }
 
 // for phones...
 function deviceShaken() {
-  shakeDice();
+  if (!gameOver) {
+    rollDice();
+  }
 }
 
 // loop over the array of dice and try to roll each one in turn
