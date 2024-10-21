@@ -73,7 +73,11 @@ function deviceShaken() {
 // loop over the array of dice and try to roll each one in turn
 // (note that a die won't actually roll if it's frozen)
 // also, output the list of values to the console
-function shakeDice() {
+// Function to roll the dice (unless they are frozen)
+
+function rollDice() {
+  if (rollCount < maxRolls) {
+    rollCount++;
   let list = "values: ";
   for (let i = 0; i < dice.length; i++) {
     const die = dice[i];
@@ -81,4 +85,10 @@ function shakeDice() {
     list = list + die.value + " ";
   }
   console.log(list);
+
+   // Check if max rolls reached
+   if (rollCount >= maxRolls) {
+    gameOver = true;
+  }
 }
+
