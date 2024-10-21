@@ -91,4 +91,37 @@ function rollDice() {
     gameOver = true;
   }
 }
+// Evaluate the result after the final roll
+function checkResult() {
+  let valueCounts = {};
 
+
+  // Count occurrences of each dice value
+for (let i = 0; i < dice.length; i++) {
+  let value = dice[i].value;
+  if (valueCounts[value]) {
+    valueCounts[value]++;
+  } else {
+    valueCounts[value] = 1;
+  }
+}
+// Check for combinations (pairs, three-of-a-kind, etc.)
+let counts = Object.values(valueCounts);
+  counts.sort((a, b) => b - a); // sort counts in descending order
+
+  if (counts[0] === 5) {
+    return "Five of a Kind!";
+  } else if (counts[0] === 4) {
+    return "Four of a Kind!";
+  } else if (counts[0] === 3 && counts[1] === 2) {
+    return "Full House!";
+  } else if (counts[0] === 3) {
+    return "Three of a Kind!";
+  } else if (counts[0] === 2 && counts[1] === 2) {
+    return "Two Pairs!";
+  } else if (counts[0] === 2) {
+    return "One Pair!";
+  } else {
+    return "No special combination";
+  }
+}
