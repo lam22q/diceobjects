@@ -18,11 +18,11 @@ function draw() {
   // loop over the array and place+display each die
   for (let i = 0; i < dice.length; i++) {
     const die = dice[i]; // 'die' is a temporary variable for the current array item
-    die.place(die.size*1.2*i+die.size, die.size*2); // place the die neatly in the row
+    die.place(die.size * 1.2 * i + die.size, die.size * 2); // place the die neatly in the row
     die.display(); // actually draw it on screen
   }
 
-     // Display roll instructions and roll count
+  // Display roll instructions and roll count
   fill(255);
   textAlign(LEFT, CENTER);
   text(`Rolls left: ${maxRolls - rollCount}`, 20, height - 60);
@@ -35,7 +35,7 @@ function draw() {
   }
 }
 
-// Roll the dice either by key press or device shake
+// Mouse click event: Freeze/unfreeze the clicked dice
 function mouseClicked() {
   if (gameOver) return;
 
@@ -43,64 +43,58 @@ function mouseClicked() {
     const die = dice[i];
     if (die.isTouched(mouseX, mouseY)) {
       die.toggleFreeze();
+    }
   }
 }
-}
 
-
-// // Roll the dice either by key press or device shake.
+// Roll the dice either by key press or device shake
 function keyPressed() {
   if (!gameOver) {
     rollDice();
   }
 }
 
-// for phones...
 function deviceShaken() {
   if (!gameOver) {
     rollDice();
   }
 }
 
-// loop over the array of dice and try to roll each one in turn
-// (note that a die won't actually roll if it's frozen)
-// also, output the list of values to the console
 // Function to roll the dice (unless they are frozen)
-
 function rollDice() {
   if (rollCount < maxRolls) {
     rollCount++;
-  let list = "values: ";
-  for (let i = 0; i < dice.length; i++) {
-    const die = dice[i];
-    die.roll();
-    list = list + die.value + " ";
-  }
-  console.log(list);
+    let list = "values: ";
+    for (let i = 0; i < dice.length; i++) {
+      const die = dice[i];
+      die.roll();
+      list += die.value + " ";
+    }
+    console.log(list);
 
-   // Check if max rolls reached
-   if (rollCount >= maxRolls) {
-    gameOver = true;
+    // Check if max rolls reached
+    if (rollCount >= maxRolls) {
+      gameOver = true;
+    }
   }
 }
-}
-  
+
 // Evaluate the result after the final roll
 function checkResult() {
   let valueCounts = {};
 
-
   // Count occurrences of each dice value
-for (let i = 0; i < dice.length; i++) {
-  let value = dice[i].value;
-  if (valueCounts[value]) {
-    valueCounts[value]++;
-  } else {
-    valueCounts[value] = 1;
+  for (let i = 0; i < dice.length; i++) {
+    let value = dice[i].value;
+    if (valueCounts[value]) {
+      valueCounts[value]++;
+    } else {
+      valueCounts[value] = 1;
+    }
   }
-}
-// Check for combinations (pairs, three-of-a-kind, etc.)
-let counts = Object.values(valueCounts);
+
+  // Check for combinations (pairs, three-of-a-kind, etc.)
+  let counts = Object.values(valueCounts);
   counts.sort((a, b) => b - a); // sort counts in descending order
 
   if (counts[0] === 5) {
@@ -119,6 +113,7 @@ let counts = Object.values(valueCounts);
     return "No special combination";
   }
 }
+
 // Class for creating and controlling individual dice
 class Die {
   constructor(size) {
