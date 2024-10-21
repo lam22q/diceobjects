@@ -125,3 +125,43 @@ let counts = Object.values(valueCounts);
     return "No special combination";
   }
 }
+// Class for creating and controlling individual dice
+class Die {
+  constructor(size) {
+    this.size = size;
+    this.value = 1;
+    this.frozen = false;
+  }
+
+  place(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  display() {
+    fill(255);
+    if (this.frozen) {
+      fill(200, 0, 0); // Change color if frozen
+    }
+    rect(this.x, this.y, this.size, this.size, 10);
+
+    fill(0);
+    textAlign(CENTER, CENTER);
+    textSize(this.size / 2);
+    text(this.value, this.x + this.size / 2, this.y + this.size / 2);
+  }
+
+  roll() {
+    if (!this.frozen) {
+      this.value = floor(random(1, 7)); // Random value between 1 and 6
+    }
+  }
+
+  isTouched(mx, my) {
+    return mx > this.x && mx < this.x + this.size && my > this.y && my < this.y + this.size;
+  }
+
+  toggleFreeze() {
+    this.frozen = !this.frozen;
+  }
+}
