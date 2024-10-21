@@ -22,16 +22,6 @@ function draw() {
     die.display(); // actually draw it on screen
   }
 
-}
-
-function mouseClicked() {
-  // loop over the array of dice...
-  for (let i = 0; i < dice.length; i++) {
-    const die = dice[i];
-    // if the cursor is over the current die, freeze/unfreeze that die
-    if (die.isTouched(mouseX,mouseY)) {
-      die.toggleFreeze();
-    }
      // Display roll instructions and roll count
   fill(255);
   textAlign(LEFT, CENTER);
@@ -55,6 +45,8 @@ function mouseClicked() {
       die.toggleFreeze();
   }
 }
+}
+
 
 // // Roll the dice either by key press or device shake.
 function keyPressed() {
@@ -91,6 +83,8 @@ function rollDice() {
     gameOver = true;
   }
 }
+}
+  
 // Evaluate the result after the final roll
 function checkResult() {
   let valueCounts = {};
